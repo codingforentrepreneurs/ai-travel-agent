@@ -1,8 +1,9 @@
 private/
 venv/
 .env
-!datasets/readme.md
 datasets/
+!datasets/readme.md
+
 
 .DS_Store
 # Byte-compiled / optimized / DLL files
