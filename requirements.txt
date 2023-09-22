@@ -7,3 +7,4 @@ sqlalchemy
 mysqlclient
 uvicorn
 jinja2
+pydantic
