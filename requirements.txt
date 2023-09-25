@@ -8,3 +8,4 @@ mysqlclient
 uvicorn
 jinja2
 pydantic
+requests
