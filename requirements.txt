@@ -9,3 +9,4 @@ uvicorn
 jinja2
 pydantic
 requests
+airportsdata
