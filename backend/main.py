@@ -2,7 +2,12 @@ from typing import List
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+from requests import Session as RequestsSession
+
 from backend.env import config
+from backend.ai import predict
+from backend.ai.connect import get_mindsdb_session
+
 from backend.db.connect import get_db_session, SessionLocal
 from backend.db.schemas import FlightPriceSchema, FlightPriceDetailSchema
 from backend.db import utils as db_utils
@@ -35,9 +40,16 @@ def write_hello_world():
     }
 
 @app.post("/predict")
-def write_to_predict():
+def write_to_predict(ai_session: RequestsSession = Depends(get_mindsdb_session)):
+    predictions = predict.predict_query(
+        ai_session,
+        flightDate = "2022-04-21", 
+        startingAirport="SFO", 
+        isNonStop=1, 
+        destinationAirport="BOS",
+    )
     return {
-        "prediction": "world",
+        "predictions": predictions,
     }
 
 
