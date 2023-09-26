@@ -7,10 +7,10 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function FlightListPage() {
   const url = "http://localhost:8080/flights"
   const { data, error, isLoading } = useSWR(url, fetcher)
-  const mainClassCSS ="flex min-h-screen flex-col items-center justify-between p-24"
+  
   const linkCSS = "text-emerald-500 hover:text-emerald-900 dark:text-gray-400 dark:hover:text-gray-900"
-  if (error) return <div className={mainClassCSS}>failed to load</div>
-  if (isLoading) return <div className={mainClassCSS}>loading...</div>
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
   const myVar = "word"
 
   const renderListData = (row, idx) => {
@@ -31,9 +31,9 @@ export default function FlightListPage() {
     </div>
   }
   return ( // jsx
-    <main className={mainClassCSS}>
+    <div>
       <h1>hello {myVar}</h1>
       {data && data.map(renderListData)}
-    </main>
+    </div>
   )
 }
