@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from requests import Session as RequestsSession
@@ -39,13 +39,17 @@ def write_hello_world():
     }
 
 @app.post("/predict")
-def write_to_predict(ai_session: RequestsSession = Depends(get_mindsdb_session)):
+def write_to_predict(prediction_req:db_schemas.PredictSchema, ai_session: RequestsSession = Depends(get_mindsdb_session)):
+    print(prediction_req)
+    request_data = prediction_req.model_dump()
+    print(request_data)
     predictions = predict.predict_query(
         ai_session,
-        flightDate = "2022-04-21", 
-        startingAirport="SFO", 
-        isNonStop=1, 
-        destinationAirport="BOS",
+        **request_data,
+        # flightDate = "2022-04-21", 
+        # startingAirport=request_data.get("startingAirport"), 
+        # isNonStop=1, 
+        # destinationAirport=request_data.get("destinationAirport"),
     )
     return {
         "predictions": predictions,

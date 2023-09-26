@@ -12,14 +12,19 @@ def predict_query(session,
         flightDate = "2022-04-21", 
         startingAirport="SFO", 
         isNonStop=1, 
+        isBasicEconomy=0,
+        isRefundable=0,
         destinationAirport="BOS",
         raw_request=False,
+        **kwargs,
         ):
     sql_query = f"""
     SELECT m.flightDate, m.segmentsAirlineName, m.isNonStop, m.totalFare, m.totalFare_confidence FROM mindsdb.flight_price_predictor AS m
     JOIN ai_travel_agent.flight_prices AS t
     WHERE t.flightDate = "{flightDate}"
     AND t.startingAirport = "{startingAirport}"
+    AND t.isBasicEconomy = "{isBasicEconomy}"
+    AND t.isRefundable = "{isRefundable}"
     AND t.isNonStop = {isNonStop}
     AND t.destinationAirport = "{destinationAirport}";
     """
