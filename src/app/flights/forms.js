@@ -1,9 +1,13 @@
+"use client"
+
+import {useState} from 'react'
 import {API_BASE_URL} from '@/app/utils/apiClient'
 
 import AirportDropdown from "@/app/airports/dropdown"
 
 export default function FlightPredictForm(props) {
-
+    const [startAirportVal, setStartAirportVal] = useState("jfk")
+    const [endAirportVal, setEndAirportVal] = useState("ord")
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -25,8 +29,15 @@ export default function FlightPredictForm(props) {
     }
 
     return <form onSubmit={handleSubmit}>
-        <AirportDropdown name='startingAirport' />
-        <AirportDropdown name='destinationAirport' />
+        <AirportDropdown 
+            name='startingAirport' 
+            value={startAirportVal}
+            onChange={e => setStartAirportVal(e.target.value)} />
+        <AirportDropdown 
+            name='destinationAirport'
+            value={endAirportVal} 
+            onChange={e => setEndAirportVal(e.target.value)} 
+            filterval={startAirportVal}  />
         <button type="submit">Send</button>
     </form>
 }
