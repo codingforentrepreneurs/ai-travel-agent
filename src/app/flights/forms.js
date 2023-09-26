@@ -1,6 +1,9 @@
 import {API_BASE_URL} from '@/app/utils/apiClient'
 
+import AirportDropdown from "@/app/airports/dropdown"
+
 export default function FlightPredictForm(props) {
+
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -22,8 +25,8 @@ export default function FlightPredictForm(props) {
     }
 
     return <form onSubmit={handleSubmit}>
-        <input type='text' name='query' placeholder='Your query...' />
-        <input type='text' name='arg2' placeholder='Your query...' />
+        <AirportDropdown name='startingAirport' />
+        <AirportDropdown name='destinationAirport' />
         <button type="submit">Send</button>
     </form>
 }
