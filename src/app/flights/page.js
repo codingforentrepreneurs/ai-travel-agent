@@ -1,6 +1,7 @@
 "use client" // make for frontend only
 
 import useSWR from 'swr'
+import Link from '@/app/utils/link'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -8,7 +9,7 @@ export default function FlightListPage() {
   const url = "http://localhost:8080/flights"
   const { data, error, isLoading } = useSWR(url, fetcher)
   
-  const linkCSS = "text-emerald-500 hover:text-emerald-900 dark:text-gray-400 dark:hover:text-gray-900"
+  
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
   const myVar = "word"
@@ -17,7 +18,7 @@ export default function FlightListPage() {
     const flightRowLink = `/flights/${row.id}`
     return <div key={`flight-data-${idx}`}>
         <p>
-          <a className={linkCSS} href={flightRowLink}>{row.flightDate}</a>
+          <Link href={flightRowLink}>{row.flightDate}</Link>
         </p>
         <p>
           {row.startingAirport}
