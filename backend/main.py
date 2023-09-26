@@ -34,6 +34,12 @@ def write_hello_world():
         "Debug": DEBUG,
     }
 
+@app.post("/predict")
+def write_to_predict():
+    return {
+        "prediction": "world",
+    }
+
 
 @app.get("/flights/", response_model=List[FlightPriceSchema])
 def read_flight_prices(offset:int=0, limit:int=100, db_session: SessionLocal = Depends(get_db_session)):
