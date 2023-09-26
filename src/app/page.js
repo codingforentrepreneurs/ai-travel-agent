@@ -8,22 +8,22 @@ export default function Home() {
   const url = "http://localhost:8080/flights"
   const { data, error, isLoading } = useSWR(url, fetcher)
   const mainClassCSS ="flex min-h-screen flex-col items-center justify-between p-24"
+  const linkCSS = "text-emerald-500 hover:text-emerald-900 dark:text-gray-400 dark:hover:text-gray-900"
   if (error) return <div className={mainClassCSS}>failed to load</div>
   if (isLoading) return <div className={mainClassCSS}>loading...</div>
-  console.log(data)
   const myVar = "word"
 
   const renderListData = (row, idx) => {
     const flightRowLink = `/flights/${row.id}`
     return <div key={`flight-data-${idx}`}>
         <p>
-          <a href={flightRowLink}>{row.flightDate}</a>
+          <a className={linkCSS} href={flightRowLink}>{row.flightDate}</a>
         </p>
         <p>
           {row.startingAirport}
         </p>
         <p> 
-          {row.startingAirport}
+          {row.destinationAirport}
         </p>
         <p>
           {row.totalFare}
