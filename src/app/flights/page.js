@@ -1,14 +1,10 @@
 "use client" // make for frontend only
 
-import useSWR from 'swr'
 import Link from '@/app/utils/link'
-
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+import performAPIGetRequest from '@/app/utils/apiClient'
 
 export default function FlightListPage() {
-  const url = "http://localhost:8080/flights"
-  const { data, error, isLoading } = useSWR(url, fetcher)
-  
+  const { data, error, isLoading } = performAPIGetRequest("/flights")
   
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
