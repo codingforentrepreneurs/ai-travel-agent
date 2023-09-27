@@ -40,6 +40,8 @@ export default function FlightPredictForm(props) {
 
     }
 
+    const btnClassName = predictData.loading ? "btn-disabled" : "btn-primary"
+    const btnLabel = predictData.loading ? "Loading...": "Help me"
     return <div><form onSubmit={handleSubmit}>
         <AirportDropdown 
             name='startingAirport' 
@@ -52,24 +54,27 @@ export default function FlightPredictForm(props) {
             filterval={startAirportVal}  />
 
         <div>
+         <input type='checkbox' name='isNonStop' id='isNonStop' />
             <label htmlFor='isNonStop'>
-                <input type='checkbox' name='isNonStop' id='isNonStop' />
+                
                 Non stop flight?
             </label>
         </div>
         <div>
+        <input type='checkbox' name='isBasicEconomy' id='isBasicEconomy'  />
             <label htmlFor='isBasicEconomy'>
-                <input type='checkbox' name='isBasicEconomy' id='isBasicEconomy'  />
+                
                 Basic Economy?
             </label>
         </div>
         <div>
+            <input type='checkbox' name='isRefundable' id='isRefundable' />
             <label htmlFor='isRefundable'>
-                <input type='checkbox' name='isRefundable' id='isRefundable' />
+               
                 Refundable?
             </label>
         </div>
-        {predictData.loading ? <div>Loading </div> : <button type="submit">Send</button>}
+        <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>
     </form>
         {(predictData && predictData.predictions && predictData.predictions.length > 0) && predictData.predictions.map((pred, idx)=>{
             return <div key={idx}>
