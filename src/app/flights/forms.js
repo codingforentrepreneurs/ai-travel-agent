@@ -4,6 +4,7 @@ import {useState} from 'react'
 import {API_BASE_URL} from '@/app/utils/apiClient'
 
 import AirportDropdown from "@/app/airports/dropdown"
+import PredictionResultTable from './tables';
 
 export default function FlightPredictForm(props) {
     const [startAirportVal, setStartAirportVal] = useState("jfk")
@@ -95,10 +96,8 @@ export default function FlightPredictForm(props) {
         </div>
         </div>
     </form>
-        {(predictData && predictData.predictions && predictData.predictions.length > 0) && predictData.predictions.map((pred, idx)=>{
-            return <div key={idx}>
-                  {JSON.stringify(pred)}
-                </div>
-        })}
+
+    <PredictionResultTable results={predictData && predictData.predictions} />
+        
     </div>
 }
