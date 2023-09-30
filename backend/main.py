@@ -40,18 +40,17 @@ def write_hello_world():
 
 @app.post("/predict")
 def write_to_predict(prediction_req:db_schemas.PredictSchema, ai_session: RequestsSession = Depends(get_mindsdb_session)):
-    print(prediction_req)
     request_data = prediction_req.model_dump()
-    print(request_data)
     predictions = predict.predict_query(
         ai_session,
         **request_data,
-        # flightDate = "2022-04-21", 
-        # startingAirport=request_data.get("startingAirport"), 
-        # isNonStop=1, 
-        # destinationAirport=request_data.get("destinationAirport"),
     )
+    if len(predictions) == 0: 
+        return {}
+    recommendation = predict.recommended_flight(ai_session, user_data = request_data,
+        forecast_data =predictions)
     return {
+        "recommendation": recommendation,
         "predictions": predictions,
     }
 
