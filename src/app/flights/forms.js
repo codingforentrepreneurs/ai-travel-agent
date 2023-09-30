@@ -97,7 +97,6 @@ export default function FlightPredictForm(props) {
         </div>
         </div>
     </form>
-    {predictData && predictData.recommendation ? <div>{JSON.stringify(predictData.recommendation)}</div> : null }
     <PredictionResultTable results={predictData && predictData.predictions} recommendation={predictData.recommendation} />
         
     </div>
