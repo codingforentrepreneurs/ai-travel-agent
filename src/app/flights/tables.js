@@ -1,11 +1,8 @@
+import Link from 'next/link'
 
+import getAirlinePurchaseLink from './links'
 
-export default function PredictionResultTable({results, recommendation}) {
-    // {(predictData && predictData.predictions && predictData.predictions.length > 0) && predictData.predictions.map((pred, idx)=>{
-    //     return <div key={idx}>
-    //           {JSON.stringify(pred)}
-    //         </div>
-    // })}
+export default function PredictionResultTable({results, recommendation, startAirport, endAirport}) {
     if (!results) return <div></div>
     if (results.length === 0) return <div></div>
     const firstResult = results[0]
@@ -36,8 +33,16 @@ export default function PredictionResultTable({results, recommendation}) {
                     if (isRecommended) {
                         className = "bg-blue-300 text-black font-bold border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-blue-500 dark:hover:bg-gray-600"
                     }
+                    const predDateObject = new Date(Date.parse(pred.date))
+                    
+                    
+                    const airlineLinkData = {
+                        airline: pred.airline, 
+                        date: predDateObject, from:startAirport, to:endAirport}
+                    const purchaseLink = getAirlinePurchaseLink(airlineLinkData)
 
                     return <tr key={trIdx} className={className}>
+                        
                         {trValues && trValues.map((trCol, tcolIdx )=>{
                             if (tcolIdx === requestIdColIdx) {
                                 const recLabel = isRecommended ? "->" : ""
@@ -58,6 +63,10 @@ export default function PredictionResultTable({results, recommendation}) {
                             {renderedCol}
                         </td>
                         })}
+
+                        <td className="px-6 py-4">
+                            {purchaseLink && purchaseLink ? <Link href={purchaseLink} target="_blank">Purchase</Link> : null}
+                        </td>
                 </tr>
                 })}
                 
