@@ -34,6 +34,8 @@ Topics covered:
 - Pandas: https://pandas.pydata.org/
 - Jupyter Notebooks: https://jupyter.org/
 
+## Lesson Reference
+Each Git branch corresponds to the start and end of a section when it makes sense to do so. For example, section 33 starts at Branch `33-start` and ends with branch `33-end`. These branches exist for your reference where main branch has the latest code.
 
 ## Install Docker & Docker Compose
 
