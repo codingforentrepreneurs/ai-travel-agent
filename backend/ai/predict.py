@@ -77,5 +77,4 @@ def predict_query(session,
     if dataset is None or data is None:
         return []
     web_ready_data = [dict(zip(columns, row)) for row in dataset]
-
     return web_ready_data
