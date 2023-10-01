@@ -97,7 +97,11 @@ export default function FlightPredictForm(props) {
         </div>
         </div>
     </form>
-    <PredictionResultTable results={predictData && predictData.predictions} recommendation={predictData.recommendation} startAirport={startAirportVal} endAirport={endAirportVal} />
+
+    {predictData.loading ? 
+        <div>Thinking...</div>: 
+        <PredictionResultTable results={predictData && predictData.predictions} recommendation={predictData.recommendation} startAirport={startAirportVal} endAirport={endAirportVal} />
+    }
         
     </div>
 }
