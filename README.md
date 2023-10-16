@@ -85,6 +85,49 @@ python3 -c "import secrets;print(secrets.token_urlsafe(32))"
 ```
 
 
+## Five Steps to Launch a Docker-based MariaDB Instance on AWS EC2
+
+### Step 1 Create an AWS EC2 Instance. 
+Ensure the security groups are setup correctly to allow port 3306 access for MariaDB.
+
+### Step 2: Install Docker Compose
+SSH into EC2 Instance with your private key and the `ubuntu` user:
+
+```bash
+ssh -i your-private-key.pem ubuntu@<your-ec2-instance-public-ip>
+```
+Once complete, install Docker Compose as written above.
+
+### Step 3: Setup MariaDB Root User Password
+
+On the EC2 instance create the `.env` add the following line with your own password:
+
+```bash
+MARIADB_ROOT_PASSWORD=your-secret-password
+```
+
+Such as:
+
+```bash
+echo "MARIADB_ROOT_PASSWORD=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))')" >> .env
+```
+
+### Step 4: Run MariaDB with Docker Compose
+
+Copy the contents of [config/compose.yaml](./config/compose.yaml) file to your EC2 instance to run MariaDB with:
+```bash
+curl https://raw.githubusercontent.com/codingforentrepreneurs/ai-travel-agent/main/config/compose.yaml -o compose.yaml
+docker compose -f compose.yaml up -d
+```
+
+### Step 5: Connection String to MariaDB
+Make note of the EC2 instance public IP address so you can re-use it anywhere with the following database connection string:
+```bash
+mariadb://root:your-secret-password@<your-ec2-instance-public-ip>:3306
+```
+
+
+
 ## YouTube Video Chapters
 
 Link: [https://youtu.be/F5ZsLbBqWLU](https://youtu.be/F5ZsLbBqWLU)
