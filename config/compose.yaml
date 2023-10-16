@@ -3,7 +3,7 @@ services:
     image: mariadb:lts
     restart: always
     ports:
-      - 3301:3306
+      - 3306:3306
     env_file: .env
     volumes:
       - ai-db:/var/lib/mysql
